@@ -29,14 +29,11 @@ stages:
       vmImage: $(vmImageName)
     steps:
     
-    - script: |
-        cd complete
-        mvn package
-        JAR_FILE=$(ls target/*.jar | head -n 1)
-        echo "Using JAR: $JAR_FILE"
-
-        java -Djarmode=layertools -jar $JAR_FILE extract
-      displayName: 'Build and extract Spring Boot app'
+    - task: Maven@4
+      displayName: 'Build Java app'
+      inputs:
+        mavenPomFile: 'complete/pom.xml'
+        goals: 'package spring-boot:repackage'
     
     
     
