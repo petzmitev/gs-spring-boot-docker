@@ -29,11 +29,11 @@ stages:
       vmImage: $(vmImageName)
     steps:
     
-    - task: Maven@4
-      displayName: 'Build Java app'
-      inputs:
-        mavenPomFile: 'complete/pom.xml'
-        goals: 'package dependency:copy-dependencies'
+    - script: |
+        cd complete
+        mvn package
+        java -Djarmode=layertools -jar target/*.jar extract
+      displayName: 'Build and extract Spring Boot app'
     
     
     
