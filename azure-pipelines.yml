@@ -28,6 +28,15 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+    
+    - task: Maven@4
+      displayName: 'Build Java app'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'package'
+    
+    
+    
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
