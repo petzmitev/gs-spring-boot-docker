@@ -33,7 +33,7 @@ stages:
       displayName: 'Build Java app'
       inputs:
         mavenPomFile: 'complete/pom.xml'
-        goals: 'package'
+        goals: 'package dependency:copy-dependencies'
     
     
     
