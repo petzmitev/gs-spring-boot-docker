@@ -32,7 +32,7 @@ stages:
     - task: Maven@4
       displayName: 'Build Java app'
       inputs:
-        mavenPomFile: 'pom.xml'
+        mavenPomFile: 'complete/pom.xml'
         goals: 'package'
     
     
