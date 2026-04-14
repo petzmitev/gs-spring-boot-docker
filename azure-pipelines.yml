@@ -40,9 +40,9 @@ stages:
       displayName: Build and push
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: 'petzimitev77.azurecr.io/gs-spring-boot-docker'
         dockerfile: 'complete/Dockerfile'
         buildContext: 'complete'
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: 'petzimitev77'
         tags: |
           $(tag)
