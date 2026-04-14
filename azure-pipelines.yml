@@ -1,48 +1,43 @@
-# Docker
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
-resources:
-- repo: self
-
 variables:
-  dockerRegistryServiceConnection: 'petzimitev77'
-  imageRepository: 'gs-spring-boot-docker'
-  tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
+- group: New variable group 14-us-pass
+
+- name: vmImageName
+  value: ubuntu-latest
+
+- name: tag
+  value: $(Build.BuildId)
 
 stages:
 - stage: Build
   displayName: Build and push stage
   jobs:
   - job: Build
-    displayName: Build
     pool:
       vmImage: $(vmImageName)
+
     steps:
-    
+
     - task: Maven@4
-      displayName: 'Build Java app'
+      displayName: Build Java app
       inputs:
-        mavenPomFile: 'complete/pom.xml'
-        goals: 'package spring-boot:repackage'
-        
-    - task: Docker@2
-      displayName: Login to ACR
-      inputs:
-        command: login
-        containerRegistry: $(dockerRegistryServiceConnection)
+        mavenPomFile: complete/pom.xml
+        goals: package spring-boot:repackage
+
+    - script: |
+        docker login petzimitev77.azurecr.io \
+          -u $(ACR_USERNAME) \
+          -p $(ACR_PASSWORD)
+      displayName: Docker login
 
     - task: Docker@2
       displayName: Build and push
       inputs:
         command: buildAndPush
-        repository: gs-spring-boot-docker
-        dockerfile: 'complete/Dockerfile'
-        buildContext: 'complete'
-        containerRegistry: acr-connection
+        repository: petzimitev77.azurecr.io/gs-spring-boot-docker
+        dockerfile: complete/Dockerfile
+        buildContext: complete
         tags: |
           $(tag)
