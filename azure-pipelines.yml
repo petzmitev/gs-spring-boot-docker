@@ -40,9 +40,9 @@ stages:
       displayName: Build and push
       inputs:
         command: buildAndPush
-        repository: 'petzimitev77.azurecr.io/gs-spring-boot-docker'
+        repository: gs-spring-boot-docker
         dockerfile: 'complete/Dockerfile'
         buildContext: 'complete'
-        containerRegistry: 'petzimitev77'
+        containerRegistry: acr-connection
         tags: |
           $(tag)
