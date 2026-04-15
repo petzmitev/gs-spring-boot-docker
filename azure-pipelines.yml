@@ -9,7 +9,7 @@ variables:
   value: $(Build.BuildId)
 
 - name: imageRepository
-  value: petzimitev77
+  value: petzimitev77-awhkayhndqbhgzcw.azurecr.io
 
 - name: dockerRegistryServiceConnection
   value: acr-connection
