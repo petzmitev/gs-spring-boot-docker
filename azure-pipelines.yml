@@ -9,7 +9,7 @@ variables:
   value: $(Build.BuildId)
 
 - name: imageRepository
-  value: petzimitev77-awhkayhndqbhgzcw.azurecr.io
+  value: firstrepository
 
 - name: dockerRegistryServiceConnection
   value: acr-connection
@@ -34,7 +34,7 @@ stages:
       displayName: Build and push image
       inputs:
         command: buildAndPush
-        #repository: $(imageRepository)
+        repository: $(imageRepository)
         dockerfile: complete/Dockerfile
         buildContext: complete
         containerRegistry: $(dockerRegistryServiceConnection)
