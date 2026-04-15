@@ -2,13 +2,17 @@ trigger:
 - main
 
 variables:
-- group: New variable group 14-us-pass
-
 - name: vmImageName
   value: ubuntu-latest
 
 - name: tag
   value: $(Build.BuildId)
+
+- name: imageRepository
+  value: gs-spring-boot-docker
+
+- name: dockerRegistryServiceConnection
+  value: acr-connection   # <-- името което създаде
 
 stages:
 - stage: Build
@@ -26,18 +30,13 @@ stages:
         mavenPomFile: complete/pom.xml
         goals: package spring-boot:repackage
 
-    - script: |
-        docker login petzimitev77.azurecr.io \
-          -u $(ACR_USERNAME) \
-          -p $(ACR_PASSWORD)
-      displayName: Docker login
-
     - task: Docker@2
-      displayName: Build and push
+      displayName: Build and push image
       inputs:
         command: buildAndPush
-        repository: petzimitev77.azurecr.io/gs-spring-boot-docker
+        repository: $(imageRepository)
         dockerfile: complete/Dockerfile
         buildContext: complete
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
