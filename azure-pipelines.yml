@@ -14,7 +14,6 @@ variables:
 - name: dockerRegistryServiceConnection
   value: acr-connection
 
-
 stages:
 - stage: Build
   displayName: Build and push stage
