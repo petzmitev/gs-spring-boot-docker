@@ -9,7 +9,7 @@ variables:
   value: $(Build.BuildId)
 
 - name: imageRepository
-  value: gs-spring-boot-docker
+  value: petzimitev77
 
 - name: dockerRegistryServiceConnection
   value: acr-connection
