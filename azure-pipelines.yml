@@ -34,7 +34,7 @@ stages:
       displayName: Build and push image
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        #repository: $(imageRepository)
         dockerfile: complete/Dockerfile
         buildContext: complete
         containerRegistry: $(dockerRegistryServiceConnection)
