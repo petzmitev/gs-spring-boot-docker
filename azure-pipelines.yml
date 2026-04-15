@@ -1,5 +1,5 @@
 trigger:
-- main
+- none
 
 variables:
 - name: vmImageName
@@ -23,7 +23,6 @@ stages:
       vmImage: $(vmImageName)
 
     steps:
-
     - task: Maven@4
       displayName: Build Java app
       inputs:
