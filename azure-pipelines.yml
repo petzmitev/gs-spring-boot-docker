@@ -9,7 +9,7 @@ variables:
   value: $(Build.BuildId)
 
 - name: imageRepository
-  value: firstrepository
+  value: 'firstrepository'
 
 - name: dockerRegistryServiceConnection
   value: acr-connection
