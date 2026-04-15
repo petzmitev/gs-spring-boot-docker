@@ -12,7 +12,7 @@ variables:
   value: gs-spring-boot-docker
 
 - name: dockerRegistryServiceConnection
-  value: acr-connection   # <-- името което създаде
+  value: acr-connection
 
 stages:
 - stage: Build
