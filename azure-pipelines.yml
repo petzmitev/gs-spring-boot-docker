@@ -12,9 +12,19 @@ variables:
   value: 'firstrepository'
 
 - name: dockerRegistryServiceConnection
-  value: acr-connection
+  value: 'acr-connection'
+
+- name: containerRegistry
+  value: 'petzimitev77.azurecr.io'
+
+- name: webAppName
+  value: 'sample-docker-web-app'
+
+- name: azureSubscription
+  value: 'Azure for Students(435f5de9-8733-4130-8215-eb8ef96335c8)'
 
 stages:
+# ---------------- BUILD ----------------
 - stage: Build
   displayName: Build and push stage
   jobs:
@@ -39,3 +49,20 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+# ---------------- DEPLOY ----------------
+- stage: Deploy
+  displayName: Deploy to Web App
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: $(vmImageName)
+
+    steps:
+    - task: AzureWebAppContainer@1
+      displayName: Deploy to Azure Web App
+      inputs:
+        azureSubscription: $(azureSubscription)
+        appName: $(webAppName)
+        containers: $(containerRegistry)/$(imageRepository):$(tag)
